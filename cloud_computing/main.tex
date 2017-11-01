@@ -1,0 +1,40 @@
+\documentclass{article}
+
+\usepackage{blindtext}
+
+\usepackage{multicol}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{tikz}
+\setlength{\columnsep}{1cm}
+
+\usepackage[margin=0.9in]{geometry}
+
+\input{body/setup}
+\begin{document}
+
+\input{body/toc}
+%%\input{body/abstract}
+\newpage
+
+\begin{multicols}{2}
+[]
+    \input{body/section}
+
+    \begin{thebibliography}{1}
+
+    \bibitem{ipfs} Juan Benet {\em IPFS - Content Addressed, Versioned, P2P File System.}.
+
+    \bibitem{ipfs2}  Bastien Confais, Adrien L'ebre, Benoît Parrein {\em An Object Store Service for a Fog/Edge Computing
+Infrastructure based on IPFS and Scale-out NAS.}.
+
+    \bibitem{fog} OpenFog {\em OpenFog Reference Architecture
+for Fog Computing}
+
+    \end{thebibliography}
+
+\end{multicols}
+
+
+
+\end{document}
