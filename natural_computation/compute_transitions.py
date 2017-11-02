@@ -2,16 +2,8 @@ import random
 from detailed_balance import OP, compute_stationary
 import numpy as np
 
-def markov_two_site(k, l, π):
-    # Input k, either 0 or 1
-    # S, stationary prob
-    γ = min(1, π[l] / π[k])
-    if random.uniform(0, 1) < γ:
-        # Move from k to l accepted
-        k = l
-    return k
 
-def metropolis_algorithm(N, π):
+def compute_transitions(N, π):
     """
         Neightb N
         Desired steady state: π
@@ -19,18 +11,22 @@ def metropolis_algorithm(N, π):
     # New transition matrix
     P = np.zeros((9, 9))
     π_count = np.zeros(9) # State count
-    k = 0 # We start at k equal 0
 
-    for _ in range(0, 50000):
-        l = random.choice(N[k])
-        nk = markov_two_site(k, l, π)
-        P[k, nk] += 1
-        k = nk
-        π_count[k] += 1
-    # Translate rates to probability
-    P = P / P.sum(axis=1, keepdims=True)
+    for index, value in enumerate(π):
+        around_sum = 0
+        for i2 in N[index]:
+            if index != i2:
+                val = 1./4 * min(1, π[i2] / π[index])
+                around_sum += val
+                P[index, i2] = val
 
-    return P, π_count
+                print("index = %s, i2 = %s" % (index, i2))
+                print("min(1, %s/%s)  = %s" % (π[i2],π[index], (min(1, π[i2] / π[index]))))
+                print("P(%s -> %s) = %s * min(1, %s/%s)  = %s" % (index + 1, i2 + 1, OP[index, i2], π[i2], π[index],  val))
+
+        P[index, index] = 1 - around_sum
+
+    return P
 
 if __name__ == '__main__':
     N = [[1, 3, 0, 0],
@@ -44,7 +40,7 @@ if __name__ == '__main__':
         [8, 8, 7, 5]]
     # Desired stationary state
     π = [1/18, 1/18, 1/18, 1/9, 1/9, 1/9, 1/6, 1/6, 1/6]
-    P, π_count = metropolis_algorithm(N, π)
+    P = compute_transitions(N, π)
     # Compute stationary
     S = compute_stationary(P, 2000)
     # Print the propotion
