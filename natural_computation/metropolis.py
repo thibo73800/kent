@@ -32,6 +32,30 @@ def metropolis_algorithm(N, π):
 
     return P, π_count
 
+
+def sample_metropolis_algorithm(N, π):
+    """
+        Neightb N
+        Desired steady state: π
+    """
+    # New transition matrix
+    P = np.zeros((9, 9))
+    π_count = np.zeros(9) # State count
+    k = 0 # We start at k equal 0
+
+    for _ in range(0, 50000):
+        l = random.choice(N[k])
+        nk = markov_two_site(k, l, π)
+        P[k, nk] += 1
+        k = nk
+        π_count[k] += 1
+    # Translate rates to probability
+    P = P / P.sum(axis=1, keepdims=True)
+
+    return P, π_count
+
+
+
 if __name__ == '__main__':
     N = [[1, 3, 0, 0],
         [2, 4, 0, 1],
