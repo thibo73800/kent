@@ -128,17 +128,21 @@ if __name__ == '__main__':
 
     # Vector used to count the probability after 3 iterations
     # Used to compute the standard deviation layer
+
+    print("S with matrix product", compute_stationary_vector(P, 3))
+    π_count = np.zeros(9)
     probas_list = np.zeros(9).reshape(1, 9)
     for _ in range(10000):
         # Get the choosen state after 3 steps
         proba, Sc = metropolis_algorithm(N, π, 3)
+        π_count[Sc] += 1
         probas_list = np.concatenate((probas_list, [proba]), axis=0)
-
+    π_after_3 = π_count / 10000 # Divided each value in the vector by the number of repetitions
     print("Task 3:")
     # std() is used to get the standard deviation
-    print("Cell 1: %s +- %s" % (probas_list[:,0].mean(), probas_list[:,0].std()))
-    print("Cell 3: %s +- %s" % (probas_list[:,2].mean(), probas_list[:,2].std()))
-    print("Cell 9: %s +- %s" % (probas_list[:,8].mean(), probas_list[:,8].std()))
+    print("Cell 1: %s +- %s" % (π_after_3[0], probas_list[:,0].std()))
+    print("Cell 3: %s +- %s" % (π_after_3[2], probas_list[:,2].std()))
+    print("Cell 9: %s +- %s" % (π_after_3[8], probas_list[:,8].std()))
 
     ###
     # Task 4
