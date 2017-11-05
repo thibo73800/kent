@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 # I used python and Numpy which is a python library to handle matrix and vector operations
@@ -127,26 +127,31 @@ if __name__ == '__main__':
     ###
 
     # Vector used to count the probability after 3 iterations
-    π_count = np.zeros(9)
+    # Used to compute the standard deviation layer
+    probas_list = np.zeros(9).reshape(1, 9)
     for _ in range(10000):
         # Get the choosen state after 3 steps
-        _, Sc = metropolis_algorithm(N, π, 3)
-        π_count[Sc] += 1
-    # Probability after 3 iterations based on 10000 repetitions
-    π_after_3 = π_count / 10000 # Divided each value in the vector by the number of repetitions
+        proba, Sc = metropolis_algorithm(N, π, 3)
+        probas_list = np.concatenate((probas_list, [proba]), axis=0)
 
     print("Task 3:")
-    print("Cell 1: %s +- ?" % (π_after_3[0]))
-    print("Cell 3: %s +- ?" % (π_after_3[2]))
-    print("Cell 9: %s +- ?" % (π_after_3[8]))
+    # std() is used to get the standard deviation
+    print("Cell 1: %s +- %s" % (probas_list[:,0].mean(), probas_list[:,0].std()))
+    print("Cell 3: %s +- %s" % (probas_list[:,2].mean(), probas_list[:,2].std()))
+    print("Cell 9: %s +- %s" % (probas_list[:,8].mean(), probas_list[:,8].std()))
 
     ###
     # Task 4
     ###
-
-    n_π, _ = metropolis_algorithm(N, π, 1000000)
+    # Used to compute the standar deviation layer
+    probas_list = np.zeros(9).reshape(1, 9)
+    for _ in range(20): # Launch the algorithm 20 time to get the standard deviation
+        # Get the choosen state after 3 steps
+        proba, Sc = metropolis_algorithm(N, π, 1000000)
+        probas_list = np.concatenate((probas_list, [proba]), axis=0)
 
     print("Task 4:")
-    print("Cell 1: %s +- ?" % (n_π[0]))
-    print("Cell 3: %s +- ?" % (n_π[2]))
-    print("Cell 9: %s +- ?" % (n_π[8]))
+    # std() is used to get the standar deviation
+    print("Cell 1: %s +- %s" % (probas_list[:,0].mean(), probas_list[:,0].std()))
+    print("Cell 3: %s +- %s" % (probas_list[:,2].mean(), probas_list[:,2].std()))
+    print("Cell 9: %s +- %s" % (probas_list[:,8].mean(), probas_list[:,8].std()))
