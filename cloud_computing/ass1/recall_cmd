@@ -1,5 +1,0 @@
-pdflatex main.tex
-sudo apt install
-sudo apt install texlive
-sudo apt install texlive-full
-texmaker

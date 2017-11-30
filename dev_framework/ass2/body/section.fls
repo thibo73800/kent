@@ -1,7 +1,0 @@
-PWD /home/thibault/work/kent/dev_framework/ass2/body
-INPUT /etc/texmf/web2c/texmf.cnf
-INPUT /usr/share/texmf/web2c/texmf.cnf
-INPUT /usr/share/texlive/texmf-dist/web2c/texmf.cnf
-INPUT /var/lib/texmf/web2c/pdftex/pdflatex.fmt
-INPUT /home/thibault/work/kent/dev_framework/ass2/body/section.tex
-OUTPUT /home/thibault/work/kent/dev_framework/ass2/body/section.log
