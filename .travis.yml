@@ -6,20 +6,12 @@ script:
   - pytest
 install:
   - pip install -r requirements.txt
-
-
-#language: python
-#python:
-#  - 3.6
-#env:
-#  - SONAR_TOKEN=eb4e4d50be2c6d0ca3799e16685a241f45dda965
-#addons:
-#  sonarcloud:
-#    organization: "thibo73800-github" # the key of the org you chose at step #3
-#    token:
-#      secure: eb4e4d50be2c6d0ca3799e16685a241f45dda965
-#    github_token:
-#      secure: 65c939b786f69ef974a9107506f80dc87abc521e
-#script:
-  # other script steps might be done before running the actual analysis
-#  - sonar-scanner
+env:
+  - SONAR_TOKEN=eb4e4d50be2c6d0ca3799e16685a241f45dda965
+addons:
+  sonarcloud:
+    organization: "thibo73800-github" # the key of the org you chose at step #3
+    token:
+      secure: eb4e4d50be2c6d0ca3799e16685a241f45dda965
+    github_token:
+      secure: 65c939b786f69ef974a9107506f80dc87abc521e
