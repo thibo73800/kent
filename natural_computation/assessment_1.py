@@ -1,6 +1,10 @@
 #!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
+# Code on my github:
+# https://github.com/thibo73800/kent/blob/master/natural_computation/assessment_1.py
+
+
 # I used python and Numpy which is a python library to handle matrix and vector operations
 import numpy as np
 import random
